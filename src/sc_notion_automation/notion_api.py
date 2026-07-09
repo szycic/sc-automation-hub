@@ -53,10 +53,20 @@ def get_recurring_tasks_to_update():
   """Fetch recurring tasks that need to be updated."""
 
   filter_dict = {
-    "property": "Offset due date",
-    "number": {
-      "is_not_empty": True,
-    },
+    "and": [
+      {
+        "property": "Due date",
+        "date": {
+          "is_empty": True,
+        }
+      },
+      { 
+        "property": "Offset due date",
+        "number": {
+          "is_not_empty": True,
+        }
+      }
+    ]
   }
   
   return _fetch_tasks_with_filter(filter_dict)
