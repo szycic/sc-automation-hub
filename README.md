@@ -1,1 +1,1 @@
-# sc-task-automation
+# SC Notion Automation
