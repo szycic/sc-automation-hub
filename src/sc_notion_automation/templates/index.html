@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ page_title }}</title>
+  <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <main class="container">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">FastAPI dashboard</div>
+        <h1>Notion job control center</h1>
+        <p class="subtitle">
+          See scheduled jobs, watch what is currently running, and trigger any job immediately without waiting for its next interval.
+        </p>
+      </div>
+      <div class="hero-actions">
+        <button class="button secondary" type="button" onclick="refreshJobs()">Refresh</button>
+        <button class="button" type="button" onclick="runAllJobs()">Run all due jobs now</button>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat">
+        <div class="stat-label">Running now</div>
+        <div class="stat-value" id="running-count">0</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Registered jobs</div>
+        <div class="stat-value" id="job-count">0</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Last refresh</div>
+        <div class="stat-value" id="refresh-time">--</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <h2 class="panel-title">Jobs</h2>
+          <div class="panel-note">Buttons trigger the job immediately in the background.</div>
+        </div>
+        <div class="panel-note" id="connection-state">Loading...</div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Job</th>
+              <th>Status</th>
+              <th>Schedule</th>
+              <th>Last run</th>
+              <th>Result</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="job-rows"></tbody>
+        </table>
+      </div>
+      <div class="footer" id="summary-line">Waiting for job data...</div>
+    </section>
+  </main>
+
+  <script>
+    window.jobsEndpoint = "/api/v1/jobs";
+  </script>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>
