@@ -1,5 +1,5 @@
-# SC Notion Automation
-This repository contains the source code for the `sc-notion-automation` package.
+# SC Automation Hub
+This repository contains the source code for the `sc_automation_hub` package.
 
 The app is a small FastAPI dashboard for running Notion automation jobs, showing their current status, and triggering them manually before the next scheduled run.
 
@@ -26,7 +26,7 @@ pip install -r requirements.txt
 ## Running
 To run the application, execute:
 ```bash
-PYTHONPATH=src python -m sc_notion_automation.main
+PYTHONPATH=src python -m sc_automation_hub.main
 ```
 
 Then open the dashboard at:

@@ -6,7 +6,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from sc_notion_automation.scheduler import list_jobs, run_job_now, start_scheduler, stop_scheduler
+from sc_automation_hub.scheduler import list_jobs, run_job_now, start_scheduler, stop_scheduler
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -25,7 +25,7 @@ async def lifespan(app: FastAPI):
     stop_scheduler()
 
 
-app = FastAPI(title="SC Notion Automation", lifespan=lifespan)
+app = FastAPI(title="SC Automation Hub", lifespan=lifespan)
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 app.include_router(api_v1_router)
 
@@ -35,7 +35,7 @@ def dashboard():
   template = templates.get_template("index.html")
   return HTMLResponse(
     template.render(
-      page_title="Notion Automation",
+      page_title="Automation Hub",
     )
   )
 

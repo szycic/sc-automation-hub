@@ -1,6 +1,6 @@
 import os
 import uvicorn
-from sc_notion_automation.web import app
+from sc_automation_hub.web import app
 
 if __name__ == "__main__":
   uvicorn.run(

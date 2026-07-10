@@ -1,4 +1,4 @@
-from sc_notion_automation.notion_api import get_recurring_tasks_to_update, update_task_due_date
+from sc_automation_hub.notion_api import get_recurring_tasks_to_update, update_task_due_date
 
 def update_recurring_tasks():
   """Update all recurring tasks that need to be updated."""

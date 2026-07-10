@@ -1,5 +1,5 @@
-from sc_notion_automation.job_service import JobDefinition, JobManager
-from sc_notion_automation.tasks import update_recurring_tasks
+from sc_automation_hub.job_service import JobDefinition, JobManager
+from sc_automation_hub.tasks import update_recurring_tasks
 
 
 job_manager = JobManager()
