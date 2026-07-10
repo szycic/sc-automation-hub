@@ -1,12 +1,12 @@
 # SC Automation Hub
 This repository contains the source code for the `sc_automation_hub` package.
 
-The app is a small FastAPI dashboard for running Notion automation jobs, showing their current status, and triggering them manually before the next scheduled run.
+The app is a small FastAPI dashboard for running Python automation jobs, showing their current status, and triggering them manually before the next scheduled run.
 
 It is intended for personal or local-network use and does not include production authentication or any other extra security by default. If you expose the app beyond a trusted LAN, add authentication, TLS, and restrict access to the API endpoints.
 
 ## Environment Variables
-The following environment variables can be set to configure the package:
+The following environment variables can be set to configure already included automations:
 
 | Variable | Purpose | Example |
 |---|---|---|
