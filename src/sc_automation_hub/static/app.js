@@ -55,8 +55,8 @@ function renderJobs(payload) {
           <div class="muted" style="margin-top: 8px;">${job.running ? "Currently executing" : "Ready"}</div>
         </td>
         <td>
-          Every ${job.interval_minutes} minute${job.interval_minutes === 1 ? "" : "s"}
-          <div class="muted" style="margin-top: 8px;">Next: ${formatDateTime(job.next_run_time)}</div>
+          ${job.interval_minutes === null ? "Disabled" : `Every ${job.interval_minutes} minute${job.interval_minutes === 1 ? "" : "s"}`}
+          ${job.interval_minutes === null ? "" : `<div class="muted" style="margin-top: 8px;">Next: ${formatDateTime(job.next_run_time)}</div>`}
         </td>
         <td>
           <div>Started: ${formatDateTime(job.last_started_at)}</div>

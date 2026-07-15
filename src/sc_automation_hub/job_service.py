@@ -14,7 +14,7 @@ class JobDefinition:
   job_id: str
   label: str
   description: str
-  interval_minutes: int
+  interval_minutes: int | None
   runner: Runner
 
 
@@ -56,21 +56,22 @@ class JobManager:
       return
 
     for definition in self._definitions.values():
-      self.scheduler.add_job(
-        self._run_job,
-        trigger="interval",
-        minutes=definition.interval_minutes,
-        id=definition.job_id,
-        name=definition.label,
-        replace_existing=True,
-        max_instances=1,
-        coalesce=True,
-        misfire_grace_time=30,
-        kwargs={
-          "job_id": definition.job_id,
-          "trigger_source": "scheduled",
-        },
-      )
+      if definition.interval_minutes is not None:
+        self.scheduler.add_job(
+          self._run_job,
+          trigger="interval",
+          minutes=definition.interval_minutes,
+          id=definition.job_id,
+          name=definition.label,
+          replace_existing=True,
+          max_instances=1,
+          coalesce=True,
+          misfire_grace_time=30,
+          kwargs={
+            "job_id": definition.job_id,
+            "trigger_source": "scheduled",
+          },
+        )
 
     self.scheduler.start()
     self._started = True
