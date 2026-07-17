@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- Metadata and Document Configuration -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{{ page_title }}</title>
@@ -9,6 +10,7 @@
 </head>
 <body>
   <main class="container">
+    <!-- Hero Header & Global Action Trigger Buttons -->
     <section class="hero">
       <div>
         <div class="eyebrow">FastAPI dashboard</div>
@@ -23,6 +25,7 @@
       </div>
     </section>
 
+    <!-- Operational KPI / Quick Stats Panels -->
     <section class="stats">
       <div class="stat">
         <div class="stat-label">Running now</div>
@@ -38,6 +41,7 @@
       </div>
     </section>
 
+    <!-- Main Job Scheduling and Execution Status Table -->
     <section class="panel">
       <div class="panel-header">
         <div>
@@ -59,6 +63,7 @@
               <th>Action</th>
             </tr>
           </thead>
+          <!-- Dynamically populated body via app.js -->
           <tbody id="job-rows"></tbody>
         </table>
       </div>
@@ -66,6 +71,7 @@
     </section>
   </main>
 
+  <!-- Client-side Router and Script Configurations -->
   <script>
     window.jobsEndpoint = "/api/v1/jobs";
   </script>

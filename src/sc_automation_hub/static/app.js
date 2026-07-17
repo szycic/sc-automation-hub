@@ -1,5 +1,15 @@
+/**
+ * Endpoint URI to fetch status data and control jobs.
+ * @type {string}
+ */
 const jobsEndpoint = window.jobsEndpoint || "/api/v1/jobs";
 
+/**
+ * Formats an ISO datetime string into a user-friendly local date and time.
+ * 
+ * @param {string|null|undefined} value - ISO datetime string to format.
+ * @returns {string} Formatted local date/time string, or "--" if value is falsy.
+ */
 function formatDateTime(value) {
   if (!value) {
     return "--";
@@ -11,6 +21,12 @@ function formatDateTime(value) {
   }).format(new Date(value));
 }
 
+/**
+ * Formats execution duration seconds to two decimal places.
+ * 
+ * @param {number|null|undefined} seconds - Elapsed duration.
+ * @returns {string} Formatted duration suffix (e.g. "1.23s"), or "--" if falsy.
+ */
 function formatDuration(seconds) {
   if (seconds === null || seconds === undefined) {
     return "--";
@@ -19,6 +35,12 @@ function formatDuration(seconds) {
   return `${seconds.toFixed(2)}s`;
 }
 
+/**
+ * Computes CSS status class and display text label based on job state.
+ * 
+ * @param {Object} job - The job state payload.
+ * @returns {Array<string>} An array of [cssClass, labelText].
+ */
 function buildStatus(job) {
   if (job.running) {
     return ["running", "Running"];
@@ -35,6 +57,11 @@ function buildStatus(job) {
   return ["idle", "Idle"];
 }
 
+/**
+ * Generates and inserts HTML table rows and dashboard stats from fetched job details.
+ * 
+ * @param {Object} payload - The job API response.
+ */
 function renderJobs(payload) {
   const jobs = payload.jobs || [];
   const rows = jobs.map((job) => {
@@ -82,19 +109,26 @@ function renderJobs(payload) {
     </tr>
   `;
 
+  // Update overall counters in UI
   document.getElementById("running-count").textContent = String((payload.running_jobs || []).length);
   document.getElementById("job-count").textContent = String(jobs.length);
 
-document.getElementById("refresh-time").textContent = new Intl.DateTimeFormat(undefined, {
-  hour: "2-digit",
-  minute: "2-digit",
-  second: "2-digit",
-  hour12: false
-}).format(new Date());
+  // Update last-refreshed clock
+  document.getElementById("refresh-time").textContent = new Intl.DateTimeFormat(undefined, {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false
+  }).format(new Date());
+
   document.getElementById("summary-line").textContent = `${jobs.length} job${jobs.length === 1 ? "" : "s"} loaded.`;
   document.getElementById("connection-state").textContent = "Connected";
 }
 
+/**
+ * Fetches all jobs status and updates the UI.
+ * Handles network failures by updating the connection state.
+ */
 async function refreshJobs() {
   try {
     const response = await fetch(jobsEndpoint, { headers: { "Accept": "application/json" } });
@@ -110,6 +144,11 @@ async function refreshJobs() {
   }
 }
 
+/**
+ * Requests the backend to immediately execute a single job.
+ * 
+ * @param {string} jobId - The unique identifier of the job to run.
+ */
 async function runJob(jobId) {
   const response = await fetch(`/api/v1/jobs/${jobId}/run`, {
     method: "POST",
@@ -125,6 +164,9 @@ async function runJob(jobId) {
   await refreshJobs();
 }
 
+/**
+ * Requests execution for all jobs that are not currently running.
+ */
 async function runAllJobs() {
   const response = await fetch(jobsEndpoint, { headers: { "Accept": "application/json" } });
   if (!response.ok) {
@@ -140,5 +182,8 @@ async function runAllJobs() {
   }
 }
 
+// Initial fetch when UI loads
 refreshJobs();
+
+// Polling interval to auto-refresh job states every 5 seconds
 setInterval(refreshJobs, 5000);
