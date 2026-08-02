@@ -19,7 +19,7 @@ job_manager = JobManager()
 job_manager.register_job(
   JobDefinition(
     job_id="update_recurring_tasks",
-    label="Update primary recurring tasks",
+    label="Update recurring tasks",
     description="Fetches recurring Notion tasks from the primary instance and updates their due dates.",
     interval_minutes=5,
     runner=update_recurring_tasks,
@@ -31,7 +31,7 @@ job_manager.register_job(
   JobDefinition(
     job_id="update_misias_recurring_tasks",
     label="Update Misia's recurring tasks",
-    description="Fetches recurring Notion tasks from Misia's database and updates their due dates.",
+    description="Fetches recurring Notion tasks from Misia's instance and updates their due dates.",
     interval_minutes=5,
     runner=update_secondary_recurring_tasks,
   )
