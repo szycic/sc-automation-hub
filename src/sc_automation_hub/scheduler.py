@@ -6,20 +6,34 @@ and manually trigger executions.
 """
 
 from sc_automation_hub.job_service import JobDefinition, JobManager
-from sc_automation_hub.tasks import update_recurring_tasks
+from sc_automation_hub.tasks import (
+    update_recurring_tasks,
+    update_secondary_recurring_tasks,
+)
 
 
 # Instantiate the global JobManager
 job_manager = JobManager()
 
-# Register the default recurring Notion task update job
+# Register the default recurring Notion task update job (primary)
 job_manager.register_job(
   JobDefinition(
     job_id="update_recurring_tasks",
-    label="Update recurring tasks",
-    description="Fetches recurring Notion tasks and updates their due dates.",
+    label="Update primary recurring tasks",
+    description="Fetches recurring Notion tasks from the primary instance and updates their due dates.",
     interval_minutes=5,
     runner=update_recurring_tasks,
+  )
+)
+
+# Register the secondary recurring Notion task update job
+job_manager.register_job(
+  JobDefinition(
+    job_id="update_misias_recurring_tasks",
+    label="Update Misia's recurring tasks",
+    description="Fetches recurring Notion tasks from Misia's database and updates their due dates.",
+    interval_minutes=5,
+    runner=update_secondary_recurring_tasks,
   )
 )
 

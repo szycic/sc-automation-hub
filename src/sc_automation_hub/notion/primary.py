@@ -1,6 +1,6 @@
-"""Notion Integration Client.
+"""Primary Notion Integration Client.
 
-This module provides utility interfaces to interact with the Notion API via the
+This module provides utility interfaces to interact with the primary Notion API instance via the
 `notion_client` SDK. It handles credentials retrieval, query filtering (specifically for paginated
 data sources queries), date parsing, and updating page attributes in the tasks database.
 """
@@ -20,7 +20,7 @@ NOTION_TASKS_ID = os.getenv("NOTION_TASKS_ID")
 
 
 def _get_notion_client() -> Client:
-  """Retrieves and instantiates the Notion Client.
+  """Retrieves and instantiates the primary Notion Client.
 
   Returns:
       An authenticated instance of the notion_client.Client.
@@ -35,7 +35,7 @@ def _get_notion_client() -> Client:
 
 
 def _get_tasks_data_source_id() -> str:
-  """Retrieves the Notion database or data source ID.
+  """Retrieves the primary Notion database or data source ID.
 
   Returns:
       The string database identifier.
@@ -50,7 +50,7 @@ def _get_tasks_data_source_id() -> str:
 
 
 def _fetch_tasks_with_filter(filter_dict: dict) -> list[dict]:
-  """Fetches tasks from Notion with the given filter, supporting pagination.
+  """Fetches tasks from primary Notion with the given filter, supporting pagination.
 
   Args:
       filter_dict: A dictionary representation of a Notion filter structure.
@@ -84,7 +84,7 @@ def _fetch_tasks_with_filter(filter_dict: dict) -> list[dict]:
 
 
 def get_recurring_tasks_to_update() -> list[dict]:
-  """Fetches recurring tasks that need to be updated.
+  """Fetches primary recurring tasks that need to be updated.
 
   Queries for tasks where the "Due date" property is empty AND the
   "Offset due date" property is set.
@@ -131,7 +131,7 @@ def _parse_planned_start(planned_start: str | None) -> date | None:
 
 
 def update_task_due_date(task: dict):
-  """Computes and updates the due date of a task in Notion.
+  """Computes and updates the due date of a task in primary Notion.
 
   Calculates the new due date as: `Planned start` + `Offset due date` (in days).
   After setting the new "Due date", it clears the "Offset due date" field.

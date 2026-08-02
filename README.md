@@ -12,6 +12,8 @@ The following environment variables can be set to configure already included aut
 |---|---|---|
 | `NOTION_TOKEN` | Notion integration token used to authenticate API requests | `secret_xxx` |
 | `NOTION_TASKS_ID` | Notion database/data source ID containing the tasks to update | `xxxxx-xxxx-xxxx-xxxxxxxxxxxx` |
+| `NOTION_SECONDARY_TOKEN` | Secondary Notion integration token used to authenticate secondary API requests | `secret_xxx` |
+| `NOTION_SECONDARY_TASKS_ID` | Secondary Notion database/data source ID containing tasks for the secondary instance | `xxxxx-xxxx-xxxx-xxxxxxxxxxxx` |
 | `HOST` | Host address used by the development server | `0.0.0.0` |
 | `PORT` | Port used by the development server | `8000` |
 
