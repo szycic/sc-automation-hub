@@ -14,7 +14,7 @@ from sc_automation_hub.notion.secondary import (
 )
 
 
-def update_recurring_tasks():
+def update_primary_recurring_tasks():
   """Updates all recurring primary Notion tasks that currently require synchronization.
 
   Queries primary Notion for tasks with missing due dates but defined offsets, computes
@@ -96,8 +96,3 @@ def update_secondary_recurring_tasks():
     "updated": updated_count,
     "failed": failed_tasks,
   }
-
-
-# Aliases for flexible function naming
-update_primary_recurring_tasks = update_recurring_tasks
-update_recurring_secondary_tasks = update_secondary_recurring_tasks
